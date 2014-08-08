@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:helper="tk.arukoh.videotrimmerui.*"
+			   backgroundColor="#E6EBFA"
+			   fontSize="12"
+			   width="100%" height="100%"
+			   applicationComplete="init();">
+	
+	<fx:Declarations>
+		<helper:MainHelper id="mainHelper"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.display.DisplayObject;
+			
+			private function init():void
+			{
+				sourceURL.text = "";
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup id="area" horizontalAlign="contentJustify"
+		x="{Math.max((width - area.width)/2,0)}"
+		width="{videoDisplay.width}" height="{height}"
+		gap="12" paddingLeft="12" paddingRight="12" paddingTop="12">
+		
+		<s:Group id="sourceGroup" left="0" right="0">
+			<s:TextInput id="sourceURL" toolTip="Video Source URL"
+				width="{area.width - loadButton.width}" height="{loadButton.height}"
+				left="0" top="0" />
+			<s:Button id="loadButton" label="Load"
+				right="0" top="0" />
+		</s:Group>
+		
+		<s:Group id="timeDisplayGroup" left="0" right="0">
+			<s:Label id="sourceTimeLabel" text="{mainHelper.sourceTimeLabelText}" verticalAlign="middle"
+				left="0" />
+			<s:Label id="durationLabel" text="{mainHelper.durationLabelText}" verticalAlign="middle"
+				right="{(timeDisplayGroup.width - durationLabel.width)/2}" />
+			<s:Label id="fileSizeLabel" text="{mainHelper.fileSizeLabelText}" verticalAlign="middle" right="0" />
+		</s:Group>
+		
+		<s:Group id="videoDisplayGroup" left="0" right="0">
+			<s:VideoDisplay id="videoDisplay" autoPlay="false" autoRewind="false"
+				width="512" height="256"
+				left="0" right="0" />
+		</s:Group>
+		
+		<s:Group id="videoSliderGroup" left="0" right="0">
+			<mx:HSlider id="videoSlider" showTrackHighlight="true" allowThumbOverlap="false" thumbCount="2"
+				labels="[0]"
+				minimum="0" maximum="0" snapInterval="1"
+				left="0" right="0" />
+			<s:HSlider id="videoSliderEx"
+				skinClass="tk.arukoh.videotrimmerui.skins.CustomHSliderSkin"
+				minimum="0" maximum="0" snapInterval="1"
+				left="0" right="0"
+				y="16" />
+		</s:Group>
+		
+		<s:TileGroup horizontalCenter="0" requestedColumnCount="2" requestedRowCount="1" left="0" right="0">
+			<s:VGroup horizontalAlign="contentJustify" gap="12">
+				<s:HGroup gap="6" verticalAlign="contentJustify">
+					<s:Label text="Start:" verticalAlign="middle"/>
+					<s:NumericStepper id="startNumericStepper" />
+				</s:HGroup>
+				<s:VideoDisplay id="startVideoDisplay" autoPlay="false" autoRewind="false"
+					width="256" height="128"
+					left="0" right="0" />
+			</s:VGroup>
+			<s:VGroup horizontalAlign="contentJustify" gap="12">
+				<s:HGroup gap="6" verticalAlign="contentJustify">
+					<s:Label text="End:" verticalAlign="middle"/>
+					<s:NumericStepper id="endNumericStepper" />
+				</s:HGroup>
+				<s:VideoDisplay id="endVideoDisplay" autoPlay="false" autoRewind="false"
+					width="256" height="128"
+					left="0" right="0" />
+			</s:VGroup>
+		</s:TileGroup>
+	</s:VGroup>
+</s:Application>
